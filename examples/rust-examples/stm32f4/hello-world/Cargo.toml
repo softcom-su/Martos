@@ -13,4 +13,5 @@ debug = true
 # Specifying current Martos version path for ci
 martos = { path = "../../../../", features = ["cortex_m"] }
 cortex-m-rt = "0.7"
-# cortex-m-semihosting = "0.5" for debug in QEMU
+# for debug
+cortex-m-semihosting = "0.5"

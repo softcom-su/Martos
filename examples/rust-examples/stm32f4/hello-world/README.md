@@ -2,7 +2,8 @@
 
 Presented here is a straightforward 'Hello world' Rust example utilizing Martos.
 
-The program initializes the UART peripheral on STM32F4 and continuously sends the message "Hello, world\r" over USART1.
+Within the setup function, the phrase 'Setup 'hello world' from UART!' is printed once over USART1.
+Additionally, within the loop function, the counter value is printed fifty times over semihosting.
 
 ## How to Install Dependencies
 
@@ -11,6 +12,7 @@ Below is a step-by-step guide for installing dependencies on a Linux (Ubuntu/Deb
 apt-get -qq update
 apt-get install -y -q build-essential curl
 curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
 rustup target add thumbv7em-none-eabi
 ```
 
@@ -32,4 +34,4 @@ qemu-system-arm \
     -semihosting-config enable=on,target=native \
     -kernel target/thumbv7em-none-eabi/debug/example_stm32f4
 ```
-You should see the message "Hello, world" printed repeatedly in the terminal.
+You should see the message "Hello, world" printed in the terminal.
