@@ -1,9 +1,9 @@
 # Rust Example for STM32F4 Architecture
 
-Presented here is a straightforward 'Hello world' Rust example utilizing Martos.
+Presented here is a straightforward Rust example utilizing Martos with dynamic memory usage.
 
-Within the setup function, the phrase 'Setup 'hello world' from UART!' is printed once over USART1.
-Additionally, within the loop function, the counter value is printed fifty times over semihosting.
+Within the setup function, the phrase 'Setup hello world!' is printed once.
+Additionally, within the loop function, the phrase 'Loop hello world!' along with the counter value (last value of dynamic vector) is printed fifty times.
 
 ## How to Install Dependencies
 
@@ -34,4 +34,3 @@ qemu-system-arm \
     -semihosting-config enable=on,target=native \
     -kernel target/thumbv7em-none-eabi/debug/example_stm32f4
 ```
-You should see the message "Setup 'hello world' from UART!" and 50 counter values ​​printed in the terminal.

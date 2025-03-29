@@ -1,21 +1,5 @@
-extern crate alloc;
-
-use alloc::alloc::{GlobalAlloc, Layout};
 use core::mem::MaybeUninit;
-use core::ptr::null_mut;
 use embedded_alloc::LlffHeap as Heap;
-
-pub struct Dummy;
-
-unsafe impl GlobalAlloc for Dummy {
-    unsafe fn alloc(&self, _layout: Layout) -> *mut u8 {
-        null_mut()
-    }
-
-    unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout) {
-        panic!("dealloc should be never called")
-    }
-}
 
 #[global_allocator]
 static HEAP: Heap = Heap::empty();
