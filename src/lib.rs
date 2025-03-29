@@ -11,6 +11,9 @@ pub mod timer;
 #[cfg(feature = "network")]
 use esp_wifi::esp_now::EspNow;
 
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+use stm32f4xx_hal::{pac, serial::Serial};
+
 /// Martos initialization. Should be called before using Martos functions.
 pub fn init_system() {
     // Memory initialization.
@@ -26,4 +29,9 @@ pub fn init_system() {
 #[cfg(feature = "network")]
 pub fn get_esp_now() -> EspNow<'static> {
     return ports::Port::get_esp_now();
+}
+
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+pub fn get_uart() -> Serial<pac::USART1> {
+    return ports::Port::get_uart();
 }

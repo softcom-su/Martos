@@ -16,6 +16,7 @@ cooperative = []
 preemptive = []
 network = ["esp-wifi"]
 mips64_timer_tests = []
+cortex_m = []
 
 [dependencies]
 cfg-if = "1.0.0"
@@ -24,6 +25,10 @@ cfg-if = "1.0.0"
 esp-alloc = "0.5.0"
 esp-hal = "0.21.1"
 esp-wifi = { version = "0.10.1", features = ["wifi"], optional = true }
+
+[target.'cfg(any(target_arch = "arm", features = "cortex_m"))'.dependencies]
+cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
+stm32f4xx-hal = { version = "0.22.1", features = ["stm32f407"] }
 
 [dev-dependencies]
 sequential-test = "0.2.4"
