@@ -28,7 +28,7 @@ esp-wifi = { version = "0.10.1", features = ["wifi"], optional = true }
 
 [target.'cfg(any(target_arch = "arm", features = "cortex_m"))'.dependencies]
 cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
-stm32f4xx-hal = { version = "0.22.1", features = ["stm32f407"] }
+stm32f4xx-hal = { version = "0.22.1", features = ["stm32f429"] } # stm32f407 for tests on QEMU
 embedded-alloc = "0.6.0"
 
 [dev-dependencies]

@@ -668,6 +668,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c8640c5d730cb13ebd907d8d04b52f55ac9a2eec55b440c8892f40d56c76c1d"
 
 [[package]]
+name = "micromath"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3c8dda44ff03a2f238717214da50f65d5a53b45cd213a7370424ffdb6fae815"
+
+[[package]]
 name = "minijinja"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1006,6 +1012,7 @@ dependencies = [
  "enumflags2",
  "fugit",
  "fugit-timer",
+ "micromath",
  "nb 1.1.0",
  "rand_core",
  "stm32f4-staging",
