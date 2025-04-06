@@ -61,27 +61,34 @@ build-esp-c-docker:
   before_script:
     - export PATH="${PATH}:/root/.cargo/bin"
 
+.rust-template: &rust-template
+  image: ubuntu:latest
+  before_script:
+    - apt update && apt install -y curl build-essential lld
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - export PATH="${PATH}:/root/.cargo/bin"
+
 build:
   stage: build
-  <<: *base-template
+  <<: *rust-template
   script:
     - cargo build --lib --verbose
 
 test:
   stage: test
-  <<: *base-template
+  <<: *rust-template
   script:
     - cargo test --verbose
 
 fmt:
   stage: fmt
-  <<: *base-template
+  <<: *rust-template
   script:
     - cargo fmt --all -- --check
 
 clippy:
   stage: clippy
-  <<: *base-template
+  <<: *rust-template
   script:
     - cargo clippy -- -D clippy::all
 
