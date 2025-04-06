@@ -100,8 +100,7 @@ xtensa-esp32-rust-example-hello-world:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/hello-world && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/xtensa-esp32/hello-world && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/hello-world && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-rust-example-dynamic-memory:
   stage: examples
@@ -111,8 +110,7 @@ xtensa-esp32-rust-example-dynamic-memory:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/dynamic-memory && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/xtensa-esp32/dynamic-memory && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/dynamic-memory && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-rust-example-timer:
   stage: examples
@@ -122,8 +120,7 @@ xtensa-esp32-rust-example-timer:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/timer && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/xtensa-esp32/timer && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/timer && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-rust-example-wifi:
   stage: examples
@@ -133,8 +130,7 @@ xtensa-esp32-rust-example-wifi:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/wifi && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/xtensa-esp32/wifi && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/wifi && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-rust-example-scheduler:
   stage: examples
@@ -144,8 +140,7 @@ xtensa-esp32-rust-example-scheduler:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/scheduler && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/xtensa-esp32/scheduler && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/scheduler && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-static-library:
   stage: static_library
@@ -155,8 +150,7 @@ xtensa-esp32-static-library:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./c-library/xtensa-esp32 && . /root/export-esp.sh && cargo build --release
-    - cd ./c-library/xtensa-esp32 && cargo fmt --all -- --check
+    - cd ./c-library/xtensa-esp32 && . /root/export-esp.sh && cargo build --release && cargo fmt --all -- --check
   artifacts:
     paths:
       - c-library/xtensa-esp32/target/xtensa-esp32-none-elf/release/libxtensa_esp32_static_lib.a
@@ -182,8 +176,7 @@ risc-v-esp32c6-rust-example-hello-world:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/risc-v-esp32-c6/hello-world && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/risc-v-esp32-c6/hello-world && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/risc-v-esp32-c6/hello-world && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 risc-v-esp32c6-rust-example-dynamic-memory:
   stage: examples
@@ -193,8 +186,7 @@ risc-v-esp32c6-rust-example-dynamic-memory:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/risc-v-esp32-c6/dynamic-memory && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/risc-v-esp32-c6/dynamic-memory && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/risc-v-esp32-c6/dynamic-memory && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 risc-v-esp32c6-rust-example-timer:
   stage: examples
@@ -204,8 +196,7 @@ risc-v-esp32c6-rust-example-timer:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/risc-v-esp32-c6/timer && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/risc-v-esp32-c6/timer && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/risc-v-esp32-c6/timer && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 risc-v-esp32c6-rust-example-wifi:
   stage: examples
@@ -215,8 +206,7 @@ risc-v-esp32c6-rust-example-wifi:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/risc-v-esp32-c6/wifi && . /root/export-esp.sh && cargo build
-    - cd ./examples/rust-examples/risc-v-esp32-c6/wifi && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/risc-v-esp32-c6/wifi && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 risc-v-esp32c6-static-library:
   stage: static_library
@@ -226,8 +216,7 @@ risc-v-esp32c6-static-library:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./c-library/risc-v-esp32-c6 && . /root/export-esp.sh && cargo build --release
-    - cd ./c-library/risc-v-esp32-c6 && cargo fmt --all -- --check
+    - cd ./c-library/risc-v-esp32-c6 && . /root/export-esp.sh && cargo build --release && cargo fmt --all -- --check
   artifacts:
     paths:
       - c-library/risc-v-esp32-c6/target/riscv32imac-unknown-none-elf/release/librisc_v_esp32c6_static_lib.a
@@ -250,29 +239,25 @@ mips64-rust-example-hello-world:
   stage: examples
   <<: *base-template
   script:
-    - cd ./examples/rust-examples/mips64/hello-world && cargo +nightly build --release
-    - cd ./examples/rust-examples/mips64/hello-world && cargo +nightly fmt --all -- --check
+    - cd ./examples/rust-examples/mips64/hello-world && cargo +nightly build --release && cargo +nightly fmt --all -- --check
 
 mips64-rust-example-dynamic-memory:
   stage: examples
   <<: *base-template
   script:
-    - cd ./examples/rust-examples/mips64/dynamic-memory && cargo +nightly build --release
-    - cd ./examples/rust-examples/mips64/dynamic-memory && cargo +nightly fmt --all -- --check
+    - cd ./examples/rust-examples/mips64/dynamic-memory && cargo +nightly build --release && cargo +nightly fmt --all -- --check
 
 mips64-rust-example-timer:
   stage: examples
   <<: *base-template
   script:
-    - cd ./examples/rust-examples/mips64/timer && cargo +nightly build --release
-    - cd ./examples/rust-examples/mips64/timer && cargo +nightly fmt --all -- --check
+    - cd ./examples/rust-examples/mips64/timer && cargo +nightly build --release && cargo +nightly fmt --all -- --check
 
 mips64-static-library:
   stage: static_library
   <<: *base-template
   script:
-    - cd ./c-library/mips64 && cargo +nightly build --release
-    - cd ./c-library/mips64 && cargo +nightly fmt --all -- --check
+    - cd ./c-library/mips64 && cargo +nightly build --release && cargo +nightly fmt --all -- --check
   artifacts:
     paths:
       - c-library/mips64/target/mips64el-unknown-linux-gnuabi64/release/libmips64_static_lib.a
