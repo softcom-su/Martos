@@ -1,0 +1,40 @@
+stages:
+  - docker_build_and_push
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+.docker-build-template: &docker-build-template
+  stage: docker_build_and_push
+  image: docker:latest
+  services:
+  - docker:dind
+  rules:
+    - changes:
+        - dockers/**/*
+  before_script:
+    - if [ -n "$DOCKERHUB_TOKEN" ]; then echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin; fi
+
+build-xtensa-esp32-rust-docker:
+  <<: *docker-build-template
+  script:
+    - docker build -f ./dockers/xtensa-esp32/rust-dependencies/xtensa-esp32-rust.dockerfile -t $DOCKERHUB_USERNAME/xtensa-esp32-rust .
+    - docker push $DOCKERHUB_USERNAME/xtensa-esp32-rust:latest
+
+build-xtensa-esp32-c-docker:
+  <<: *docker-build-template
+  script:
+    - docker build -f ./dockers/xtensa-esp32/c-dependencies/xtensa-esp32-c.dockerfile -t $DOCKERHUB_USERNAME/xtensa-esp32-c .
+    - docker push $DOCKERHUB_USERNAME/xtensa-esp32-c:latest
+
+build-risc-v-esp32c6-c-docker:
+  <<: *docker-build-template
+  script:
+    - docker build -f ./dockers/risc-v-esp32c6/c-dependencies/risc-v-esp32c6-c.dockerfile -t $DOCKERHUB_USERNAME/risc-v-esp32c6-c .
+    - docker push $DOCKERHUB_USERNAME/risc-v-esp32c6-c:latest
+
+build-esp-c-docker:
+  <<: *docker-build-template
+  script:
+    - docker build -f ./dockers/esp/esp.dockerfile -t $DOCKERHUB_USERNAME/esp-c .
+    - docker push $DOCKERHUB_USERNAME/esp-c:latest
