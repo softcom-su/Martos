@@ -32,6 +32,6 @@ qemu-system-arm \
     -cpu cortex-m4 \
     -nographic \
     -semihosting-config enable=on,target=native \
-    -kernel target/thumbv7em-none-eabi/debug/example_stm32f4
+    -kernel target/thumbv7em-none-eabi/release/example_stm32f4
 ```
 You should see the message "Setup 'hello world' from UART!" and 50 counter values ​​printed in the terminal.

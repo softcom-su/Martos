@@ -32,5 +32,5 @@ qemu-system-arm \
     -cpu cortex-m4 \
     -nographic \
     -semihosting-config enable=on,target=native \
-    -kernel target/thumbv7em-none-eabi/debug/example_stm32f4
+    -kernel target/thumbv7em-none-eabi/release/example_stm32f4
 ```

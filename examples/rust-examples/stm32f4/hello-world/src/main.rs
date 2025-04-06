@@ -13,6 +13,7 @@ static COUNTER: AtomicU32 = AtomicU32::new(1);
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
+    hprintln!("Panic!");
     loop {}
 }
 

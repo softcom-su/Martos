@@ -10,18 +10,19 @@ use cortex_m_semihosting::{debug, hprintln}; // for debug
 use martos::{
     init_system,
     task_manager::{TaskManager, TaskManagerTrait},
+    timer::Timer,
 };
+
+/// Counter to work with in loop.
+static COUNTER: AtomicU32 = AtomicU32::new(1);
+/// Vector to work with in loop.
+static mut VEC: Vec<u64> = Vec::new();
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
     hprintln!("Panic!");
     loop {}
 }
-
-/// Counter to work with in loop.
-static COUNTER: AtomicU32 = AtomicU32::new(1);
-/// Vector to work with in loop.
-static mut VEC: Vec<u32> = Vec::new();
 
 /// Setup function for task to execute.
 fn setup_fn() {
@@ -31,10 +32,15 @@ fn setup_fn() {
 /// Loop function for task to execute.
 fn loop_fn() {
     COUNTER.fetch_add(1, Ordering::Relaxed);
+    let timer2 = Timer::get_timer(2).expect("The timer is busy");
+    timer2.change_period_timer(core::time::Duration::from_secs(10));
+    timer2.start_timer();
+    let time = timer2.get_time();
+    timer2.stop_condition_timer();
+    timer2.release_timer();
     unsafe {
-        VEC.push(COUNTER.as_ptr().read());
+        VEC.push(time.as_secs() * 1_000_000 + time.subsec_micros() as u64);
     }
-    hprintln!("Loop hello world!");
     hprintln!("Vector last value = {}", unsafe { VEC.last().unwrap() });
 }
 

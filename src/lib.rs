@@ -18,6 +18,11 @@ use stm32f4xx_hal::{pac, serial::Serial};
 pub fn init_system() {
     // Memory initialization.
     ports::Port::init_heap();
+
+    #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+    // Peripherals setup
+    ports::cortex_m::peripherals::init_peripherals();
+
     // Hardware timer setup.
     ports::Port::setup_hardware_timer();
     #[cfg(feature = "network")]
