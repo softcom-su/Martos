@@ -280,6 +280,6 @@ mips64-static-library:
 
 mips64-timer-tests:
   stage: test
-  <<: *base-template
+  <<: *rust-template
   script:
     - cargo test -F mips64_timer_tests
