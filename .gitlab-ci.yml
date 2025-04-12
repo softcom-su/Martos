@@ -276,7 +276,7 @@ mips64-timer-tests:
     - cargo test -F mips64_timer_tests
 
 stm32f4-rust-example-hello-world:
-  stage: example
+  stage: examples
   <<: *container-template
   image: arkhipovivan1/stm32f4-qemu-rust:latest
   script:
@@ -291,7 +291,7 @@ stm32f4-rust-example-hello-world:
     - cat qemu-output.log || (echo "Test failed"; exit 1)
 
 stm32f4-rust-example-dynamic-memory:
-  stage: example
+  stage: examples
   <<: *container-template
   image: arkhipovivan1/stm32f4-qemu-rust:latest
   script:
