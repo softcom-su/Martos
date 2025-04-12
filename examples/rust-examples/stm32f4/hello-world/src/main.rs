@@ -4,7 +4,7 @@
 use core::fmt::Write; // for pretty formatting of the serial output
 use core::sync::atomic::{AtomicU32, Ordering};
 use cortex_m_rt::entry;
-use cortex_m_semihosting::{debug, hprintln}; // for debug
+use cortex_m_semihosting::hprintln;
 use martos::task_manager::{TaskManager, TaskManagerTrait};
 use martos::{get_uart, init_system};
 
@@ -34,10 +34,6 @@ fn loop_fn() {
 fn stop_condition_fn() -> bool {
     let value = unsafe { COUNTER.as_ptr().read() };
     if value % 50 == 0 {
-        // exit QEMU
-        // NOTE do not run this on hardware; it can corrupt OpenOCD state
-        // debug::exit(debug::EXIT_SUCCESS);
-
         return true;
     }
     return false;

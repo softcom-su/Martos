@@ -17,6 +17,8 @@ preemptive = []
 network = ["esp-wifi"]
 mips64_timer_tests = []
 cortex_m = []
+stm32f429 = ["stm32f4xx-hal/stm32f429"] # for QEMU test
+stm32f407 = ["stm32f4xx-hal/stm32f407"]
 
 [dependencies]
 cfg-if = "1.0.0"
@@ -28,7 +30,7 @@ esp-wifi = { version = "0.10.1", features = ["wifi"], optional = true }
 
 [target.'cfg(any(target_arch = "arm", features = "cortex_m"))'.dependencies]
 cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
-stm32f4xx-hal = { version = "0.22.1", features = ["stm32f429"] } # stm32f407 for tests on QEMU
+stm32f4xx-hal = "0.22.1"
 embedded-alloc = "0.6.0"
 
 [dev-dependencies]

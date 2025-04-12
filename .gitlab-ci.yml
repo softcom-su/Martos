@@ -47,6 +47,12 @@ build-esp-c-docker:
     - docker build -f ./dockers/esp/esp.dockerfile -t $DOCKERHUB_USERNAME/esp-c .
     - docker push $DOCKERHUB_USERNAME/esp-c:latest
 
+build-stm32f4-rust-docker:
+  <<: *docker-build-template
+  script:
+    - docker build -f ./dockers/stm32f4/stm32f4-rust.dockerfile -t $DOCKERHUB_USERNAME/stm32f4-qemu-rust .
+    - docker push $DOCKERHUB_USERNAME/stm32f4-qemu-rust:latest
+
 .base-template: &base-template
   image: ubuntu:latest
   before_script:
@@ -268,3 +274,33 @@ mips64-timer-tests:
   <<: *rust-template
   script:
     - cargo test -F mips64_timer_tests
+
+stm32f4-rust-example-hello-world:
+  stage: example
+  <<: *container-template
+  image: arkhipovivan1/stm32f4-qemu-rust:latest
+  script:
+    - cd examples/rust-examples/stm32f4/hello-world && cargo build --features="stm32f407" --release
+    - |
+      timeout 5s qemu-system-arm \
+        -M netduinoplus2 \
+        -cpu cortex-m4 \
+        -nographic \
+        -semihosting-config enable=on,target=native \
+        -kernel target/thumbv7em-none-eabi/release/example_stm32f4 | tee qemu-output.log
+    - cat qemu-output.log || (echo "Test failed"; exit 1)
+
+stm32f4-rust-example-dynamic-memory:
+  stage: example
+  <<: *container-template
+  image: arkhipovivan1/stm32f4-qemu-rust:latest
+  script:
+    - cd ./examples/rust-examples/stm32f4/dynamic-memory && cargo build --features="stm32f407" --release
+    - |
+      timeout 5s qemu-system-arm \
+        -M netduinoplus2 \
+        -cpu cortex-m4 \
+        -nographic \
+        -semihosting-config enable=on,target=native \
+        -kernel target/thumbv7em-none-eabi/release/example_stm32f4 | tee qemu-output.log
+    - cat qemu-output.log || (echo "Test failed"; exit 1)
