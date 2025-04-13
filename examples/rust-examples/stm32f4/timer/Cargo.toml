@@ -7,6 +7,10 @@ edition = "2021"
 panic = "abort"
 debug = true
 
+[features]
+stm32f429 = ["martos/stm32f429"]
+stm32f407 = ["martos/stm32f407"]
+
 [dependencies]
 # Specifying Martos version
 # martos = "0.4.0"

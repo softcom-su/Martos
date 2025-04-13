@@ -9,18 +9,19 @@ stages:
   - c_examples
 
 variables:
-  DOCKER_TLS_CERTDIR: "/certs"
+  # DOCKER_TLS_CERTDIR: "/certs"
   CARGO_TERM_COLOR: always
 
 .docker-build-template: &docker-build-template
   stage: docker_build_and_push
-  image: docker:latest
-  services:
-  - docker:dind
+  # image: docker:latest
+  # services:
+  # - docker:dind
   rules:
     - changes:
         - dockers/**/*
   before_script:
+    - docker info
     - if [ -n "$DOCKERHUB_TOKEN" ]; then echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin; fi
 
 build-xtensa-esp32-rust-docker:
@@ -278,7 +279,7 @@ mips64-timer-tests:
 stm32f4-rust-example-hello-world:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/stm32f4-qemu-rust:latest
+  image: rodionovmaxim05/stm32f4-qemu-rust:latest
   script:
     - cd examples/rust-examples/stm32f4/hello-world && cargo build --features="stm32f407" --release
     - |
@@ -293,7 +294,7 @@ stm32f4-rust-example-hello-world:
 stm32f4-rust-example-dynamic-memory:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/stm32f4-qemu-rust:latest
+  image: rodionovmaxim05/stm32f4-qemu-rust:latest
   script:
     - cd ./examples/rust-examples/stm32f4/dynamic-memory && cargo build --features="stm32f407" --release
     - |

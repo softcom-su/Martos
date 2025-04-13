@@ -18,7 +18,7 @@ rustup target add thumbv7em-none-eabi
 
 ## How to build the example
 ```
-cargo build --release
+cargo build --features="stm32f429" --release
 ```
 
 ## How to Run the Example
