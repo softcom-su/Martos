@@ -9,49 +9,51 @@ stages:
   - c_examples
 
 variables:
-  DOCKER_TLS_CERTDIR: "/certs"
   CARGO_TERM_COLOR: always
 
-.docker-build-template: &docker-build-template
+.kaniko-build-template: &kaniko-build-template
   stage: docker_build_and_push
-  image: docker:latest
-  services:
-  - docker:dind
+  image:
+    name: gcr.io/kaniko-project/executor:latest
+    entrypoint: [""]
   rules:
     - changes:
         - dockers/**/*
-  before_script:
-    - if [ -n "$DOCKERHUB_TOKEN" ]; then echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin; fi
+  script:
+    - export CACHE_ARG="--cache"
+    - if [[ $CACHE = "false" ]]; then export CACHE_ARG="--cache=false"; fi
+    - /kaniko/executor --build-arg CI_JOB_TOKEN $CACHE_ARG -c "$CI_PROJECT_DIR" -f "${DOCKERFILE}" -d "$CI_REGISTRY_IMAGE:${TAG}"
+    - 'echo "Image tag: $CI_REGISTRY_IMAGE:${TAG}"'
 
 build-xtensa-esp32-rust-docker:
-  <<: *docker-build-template
-  script:
-    - docker build -f ./dockers/xtensa-esp32/rust-dependencies/xtensa-esp32-rust.dockerfile -t $DOCKERHUB_USERNAME/xtensa-esp32-rust .
-    - docker push $DOCKERHUB_USERNAME/xtensa-esp32-rust:latest
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/xtensa-esp32/rust-dependencies/xtensa-esp32-rust.dockerfile"
+    TAG: "latest"
 
 build-xtensa-esp32-c-docker:
-  <<: *docker-build-template
-  script:
-    - docker build -f ./dockers/xtensa-esp32/c-dependencies/xtensa-esp32-c.dockerfile -t $DOCKERHUB_USERNAME/xtensa-esp32-c .
-    - docker push $DOCKERHUB_USERNAME/xtensa-esp32-c:latest
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/xtensa-esp32/c-dependencies/xtensa-esp32-c.dockerfile"
+    TAG: "latest"
 
 build-risc-v-esp32c6-c-docker:
-  <<: *docker-build-template
-  script:
-    - docker build -f ./dockers/risc-v-esp32c6/c-dependencies/risc-v-esp32c6-c.dockerfile -t $DOCKERHUB_USERNAME/risc-v-esp32c6-c .
-    - docker push $DOCKERHUB_USERNAME/risc-v-esp32c6-c:latest
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/risc-v-esp32c6/c-dependencies/risc-v-esp32c6-c.dockerfile"
+    TAG: "latest"
 
 build-esp-c-docker:
-  <<: *docker-build-template
-  script:
-    - docker build -f ./dockers/esp/esp.dockerfile -t $DOCKERHUB_USERNAME/esp-c .
-    - docker push $DOCKERHUB_USERNAME/esp-c:latest
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/esp/esp.dockerfile"
+    TAG: "latest"
 
 build-stm32f4-rust-docker:
-  <<: *docker-build-template
-  script:
-    - docker build -f ./dockers/stm32f4/stm32f4-rust.dockerfile -t $DOCKERHUB_USERNAME/stm32f4-qemu-rust .
-    - docker push $DOCKERHUB_USERNAME/stm32f4-qemu-rust:latest
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/stm32f4/stm32f4-rust.dockerfile"
+    TAG: "latest"
 
 .base-template: &base-template
   image: ubuntu:latest
