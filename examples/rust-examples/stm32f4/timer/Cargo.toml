@@ -16,5 +16,6 @@ stm32f407 = ["martos/stm32f407"]
 # martos = "0.4.0"
 # Specifying current Martos version path for ci
 martos = { path = "../../../../", features = ["cortex_m"] }
+cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
 cortex-m-rt = "0.7"
 cortex-m-semihosting = "0.5"

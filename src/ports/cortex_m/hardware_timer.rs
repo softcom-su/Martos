@@ -158,3 +158,14 @@ pub fn release_hardware_timer(timer_index: u8) {
         }
     });
 }
+
+/// Cortex_m pauses execution for the given time.
+pub fn delay(time: Duration) {
+    interrupt::free(|cs| {
+        let mut peripherals = PERIPHERALS.borrow(cs).borrow_mut();
+        let dp = peripherals.as_mut().unwrap();
+        let delay = dp.delay.as_mut().unwrap();
+
+        delay.delay_ms(time.as_millis() as u32);
+    })
+}

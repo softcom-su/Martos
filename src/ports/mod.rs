@@ -41,6 +41,10 @@ pub trait PortTrait {
     /// Cortex_m uart.
     fn get_uart() -> Serial<pac::USART1>;
 
+    #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+    /// Cortex_m delay.
+    fn delay(time: core::time::Duration);
+
     // TODO: split to separate trait?
     #[cfg(feature = "preemptive")]
     fn setup_interrupt();
@@ -105,9 +109,9 @@ mod arch {
     use super::cortex_m;
     pub type Port = cortex_m::CortexM;
     #[cfg(feature = "preemptive")]
-    pub type TrapFrame = ();
+    pub type TrapFrame = cortex_m::TrapFrame;
     #[cfg(feature = "preemptive")]
-    pub const STACK_ALIGN: usize = 0;
+    pub const STACK_ALIGN: usize = 8;
 }
 
 pub use arch::*;

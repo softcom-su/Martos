@@ -16,7 +16,7 @@ pub fn get_uart() -> Serial<pac::USART1> {
         let rx_pin = gpioa.pa10.into_alternate();
 
         let usart1 = dp.usart1.take().unwrap();
-        let serial = Serial::new(usart1, (tx_pin, rx_pin), 9600.bps(), &clocks).unwrap();
+        let serial = Serial::new(usart1, (tx_pin, rx_pin), 115200.bps(), &clocks).unwrap();
 
         dp.clocks.replace(clocks);
         // How to return the remaining pins to peripherals? (It is possible to store each pin separately in the peripherals)

@@ -2,7 +2,7 @@
 
 Presented here is a straightforward Rust example utilizing Martos with timer usage.
 
-Within the setup function, the phrase 'Setup hello world!' is printed once.
+Within the setup function, the phrases 'Initializing timer...' and 'Timer initialized and started.' is printed once.
 Additionally, within the loop function, the timer value (last value of dynamic vector) is printed fifty times.
 
 ## How to Install Dependencies

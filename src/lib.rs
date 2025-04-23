@@ -40,3 +40,8 @@ pub fn get_esp_now() -> EspNow<'static> {
 pub fn get_uart() -> Serial<pac::USART1> {
     return ports::Port::get_uart();
 }
+
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+pub fn delay(time: core::time::Duration) {
+    ports::Port::delay(time);
+}
