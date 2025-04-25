@@ -306,3 +306,17 @@ stm32f4-rust-example-dynamic-memory:
         -semihosting-config enable=on,target=native \
         -kernel target/thumbv7em-none-eabi/release/example_stm32f4 | tee qemu-output.log || true
     - grep "Vector last value = 50" qemu-output.log || (echo "Test failed"; exit 1)
+
+stm32f4-rust-example-timer:
+  stage: examples
+  <<: *container-template
+  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  script:
+    - cd ./examples/rust-examples/stm32f4/timer && cargo build --features="stm32f407" --release
+
+stm32f4-rust-example-scheduler:
+  stage: examples
+  <<: *container-template
+  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  script:
+    - cd ./examples/rust-examples/stm32f4/scheduler && cargo build --features="stm32f407" --release
