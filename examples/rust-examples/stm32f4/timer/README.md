@@ -22,7 +22,14 @@ cargo build --features="stm32f429" --release
 ```
 
 ## How to Run the Example
-Below, you will find an illustrative example showcasing the running on a Linux system (Ubuntu/Debian):
+Due to the fact that qemu is currently unable to fully emulate a clock ([STM32F4 only, reset and enable only](https://www.qemu.org/docs/master/system/arm/stm32.html)), the operation of this example cannot be viewed on qemu. But the example works on the board.
+
+To run the example on a real board, follow these steps:
+1) Launch the first terminal and run OpenOCD:
 ```
-cargo run
+openocd -f openocd.cfg
+```
+2) Launch second terminal and connect to OpenOCD via GDB:
+```
+gdb-multiarch -x openocd.gdb target/thumbv7em-none-eabihf/release/example_stm32f4
 ```

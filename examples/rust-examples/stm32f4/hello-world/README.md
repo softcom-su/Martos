@@ -32,6 +32,17 @@ qemu-system-arm \
     -cpu cortex-m4 \
     -nographic \
     -semihosting-config enable=on,target=native \
-    -kernel target/thumbv7em-none-eabi/release/example_stm32f4
+    -kernel target/thumbv7em-none-eabihf/release/example_stm32f4
 ```
+
+To run the example on a real board, follow these steps:
+1) Launch the first terminal and run OpenOCD:
+```
+openocd -f openocd.cfg
+```
+2) Launch second terminal and connect to OpenOCD via GDB:
+```
+gdb-multiarch -x openocd.gdb target/thumbv7em-none-eabihf/release/example_stm32f4
+```
+
 You should see the message "Setup 'hello world' from UART!" and 50 counter values ​​printed in the terminal.

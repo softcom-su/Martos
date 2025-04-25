@@ -1,9 +1,9 @@
 # Rust Example for STM32F4 Architecture
 
-Presented here is a straightforward Rust example utilizing Martos with dynamic memory usage.
+Presented here is a straightforward Rust example utilizing Martos with preemptive scheduler.
 
-Within the setup function, the phrase 'Setup hello world!' is printed once.
-Additionally, within the loop function, the phrase 'Loop hello world!' along with the counter value (last value of dynamic vector) is printed fifty times.
+Two tasks are created. They take turns increasing the counter value and printing it out until it reaches 20. Periodically, one preempts the other.
+
 
 ## How to Install Dependencies
 
@@ -22,18 +22,7 @@ cargo build --features="stm32f429" --release
 ```
 
 ## How to Run the Example
-
-Option 1: Run in QEMU
-If you want to test the program in QEMU, use the following command:
-
-```
-qemu-system-arm \
-    -M netduinoplus2 \
-    -cpu cortex-m4 \
-    -nographic \
-    -semihosting-config enable=on,target=native \
-    -kernel target/thumbv7em-none-eabihf/release/example_stm32f4
-```
+Due to the fact that qemu is currently unable to fully emulate a clock ([STM32F4 only, reset and enable only](https://www.qemu.org/docs/master/system/arm/stm32.html)), the operation of this example cannot be viewed on qemu. But the example works on the board.
 
 To run the example on a real board, follow these steps:
 1) Launch the first terminal and run OpenOCD:
