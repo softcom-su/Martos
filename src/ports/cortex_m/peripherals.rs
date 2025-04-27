@@ -8,8 +8,8 @@ pub static PERIPHERALS: Mutex<RefCell<Option<Peripherals>>> = Mutex::new(RefCell
 /// A structure representing a set of microcontroller peripherals.
 pub struct Peripherals {
     pub clocks: Option<rcc::Clocks>,
-    pub gpioa: Option<pac::GPIOA>,
-    pub usart1: Option<pac::USART1>,
+    pub gpiod: Option<pac::GPIOD>,
+    pub usart3: Option<pac::USART3>,
     pub tim2: Option<pac::TIM2>,
     pub tim3: Option<pac::TIM3>,
     pub tim4: Option<pac::TIM4>,
@@ -32,8 +32,8 @@ impl Peripherals {
 
         Peripherals {
             clocks: Some(clocks),
-            gpioa: Some(dp.GPIOA),
-            usart1: Some(dp.USART1),
+            gpiod: Some(dp.GPIOD),
+            usart3: Some(dp.USART3),
             tim2: Some(dp.TIM2),
             tim3: Some(dp.TIM3),
             tim4: Some(dp.TIM4),

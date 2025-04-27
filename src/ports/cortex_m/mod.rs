@@ -51,7 +51,7 @@ impl PortTrait for CortexM {
         hardware_timer::release_hardware_timer(timer_index)
     }
 
-    fn get_uart() -> Serial<pac::USART1> {
+    fn get_uart() -> Serial<pac::USART3> {
         uart::get_uart()
     }
 

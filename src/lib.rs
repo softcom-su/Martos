@@ -37,7 +37,7 @@ pub fn get_esp_now() -> EspNow<'static> {
 }
 
 #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
-pub fn get_uart() -> Serial<pac::USART1> {
+pub fn get_uart() -> Serial<pac::USART3> {
     return ports::Port::get_uart();
 }
 

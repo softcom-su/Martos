@@ -39,7 +39,7 @@ pub trait PortTrait {
 
     #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
     /// Cortex_m uart.
-    fn get_uart() -> Serial<pac::USART1>;
+    fn get_uart() -> Serial<pac::USART3>;
 
     #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
     /// Cortex_m delay.
