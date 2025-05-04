@@ -6,6 +6,7 @@ edition = "2021"
 [profile.release]
 panic = "abort"
 debug = true
+opt-level = 0
 
 [features]
 stm32f429 = ["martos/stm32f429"]
@@ -18,3 +19,4 @@ stm32f407 = ["martos/stm32f407"]
 martos = { path = "../../../../", features = ["cortex_m", "preemptive"] }
 cortex-m-rt = "0.7"
 cortex-m-semihosting = "0.5" # for debug
+cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }

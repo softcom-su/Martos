@@ -13,7 +13,7 @@ apt-get -qq update
 apt-get install -y -q build-essential curl
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
-rustup target add thumbv7em-none-eabi
+rustup target add thumbv7em-none-eabihf
 ```
 
 ## How to build the example

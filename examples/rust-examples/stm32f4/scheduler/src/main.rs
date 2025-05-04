@@ -5,7 +5,7 @@ use core::sync::atomic::{AtomicU32, Ordering};
 use cortex_m_rt::entry;
 use cortex_m_semihosting::hprintln;
 use martos::{
-    delay, init_system,
+    init_system,
     task_manager::{TaskManager, TaskManagerTrait},
 };
 
@@ -19,17 +19,16 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 }
 
 /// Loop function for task to execute.
-#[no_mangle]
 fn loop_fn_1() {
     let old = COUNTER.fetch_add(1, Ordering::Relaxed);
     hprintln!("Loop 0; Counter = {}", old);
-    delay(core::time::Duration::from_millis(10_000));
+    cortex_m::asm::delay(50_000_000);
 }
 
 fn loop_fn_2() {
     let old = COUNTER.fetch_add(1, Ordering::Relaxed);
     hprintln!("Loop 1; Counter = {}", old);
-    delay(core::time::Duration::from_millis(10_000));
+    cortex_m::asm::delay(50_000_000);
 }
 
 fn setup() {

@@ -15,20 +15,15 @@ pub struct Peripherals {
     pub tim4: Option<pac::TIM4>,
     pub tim5: Option<pac::TIM5>,
     pub tim7: Option<pac::TIM7>,
-    pub delay: Option<SysDelay>,
 }
 
 impl Peripherals {
     /// Creates an instance of the `Peripherals` structure.
     pub fn new() -> Self {
         let dp = pac::Peripherals::take().unwrap();
-        let cp = cortex_m::peripheral::Peripherals::take().unwrap();
 
         let rcc = dp.RCC.constrain();
         let clocks = rcc.cfgr.freeze();
-
-        // Create a delay abstraction based on SysTick
-        let delay = cp.SYST.delay(&clocks);
 
         Peripherals {
             clocks: Some(clocks),
@@ -39,7 +34,6 @@ impl Peripherals {
             tim4: Some(dp.TIM4),
             tim5: Some(dp.TIM5),
             tim7: Some(dp.TIM7),
-            delay: Some(delay),
         }
     }
 }

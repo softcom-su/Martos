@@ -105,6 +105,7 @@ pub fn start_hardware_timer(timer_index: u8) {
 }
 
 /// Cortex_m change operating mode of hardware timer.
+/// HAL does not provide the ability to change the timer operating mode, only auto reload mode.
 pub fn set_reload_mode(_timer_index: u8, _auto_reload: bool) {}
 
 /// Cortex_m change the period of hardware timer.
@@ -157,15 +158,4 @@ pub fn release_hardware_timer(timer_index: u8) {
             timer_block.acquired[(timer_index - 2) as usize].store(false, Ordering::Release);
         }
     });
-}
-
-/// Cortex_m pauses execution for the given time.
-pub fn delay(time: Duration) {
-    interrupt::free(|cs| {
-        let mut peripherals = PERIPHERALS.borrow(cs).borrow_mut();
-        let dp = peripherals.as_mut().unwrap();
-        let delay = dp.delay.as_mut().unwrap();
-
-        delay.delay_ms(time.as_millis() as u32);
-    })
 }

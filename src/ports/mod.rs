@@ -41,10 +41,6 @@ pub trait PortTrait {
     /// Cortex_m uart.
     fn get_uart() -> Serial<pac::USART3>;
 
-    #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
-    /// Cortex_m delay.
-    fn delay(time: core::time::Duration);
-
     // TODO: split to separate trait?
     #[cfg(feature = "preemptive")]
     fn setup_interrupt();

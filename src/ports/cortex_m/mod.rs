@@ -55,10 +55,6 @@ impl PortTrait for CortexM {
         uart::get_uart()
     }
 
-    fn delay(time: core::time::Duration) {
-        hardware_timer::delay(time);
-    }
-
     #[cfg(feature = "preemptive")]
     fn setup_interrupt() {
         preempt::setup_interrupt();
@@ -94,22 +90,22 @@ pub struct TrapFrame {
     pub r11: u32, // R11
     pub psp: u32, // Process Stack Pointer
 
-    pub s16: u32, // S16
-    pub s17: u32, // S17
-    pub s18: u32, // S18
-    pub s19: u32, // S19
-    pub s20: u32, // S20
-    pub s21: u32, // S21
-    pub s22: u32, // S22
-    pub s23: u32, // S23
-    pub s24: u32, // S24
-    pub s25: u32, // S25
-    pub s26: u32, // S26
-    pub s27: u32, // S27
-    pub s28: u32, // S28
-    pub s29: u32, // S29
-    pub s30: u32, // S30
-    pub s31: u32, // S31
+    pub s16: f32, // S16
+    pub s17: f32, // S17
+    pub s18: f32, // S18
+    pub s19: f32, // S19
+    pub s20: f32, // S20
+    pub s21: f32, // S21
+    pub s22: f32, // S22
+    pub s23: f32, // S23
+    pub s24: f32, // S24
+    pub s25: f32, // S25
+    pub s26: f32, // S26
+    pub s27: f32, // S27
+    pub s28: f32, // S28
+    pub s29: f32, // S29
+    pub s30: f32, // S30
+    pub s31: f32, // S31
 }
 
 #[cfg(feature = "preemptive")]
@@ -126,22 +122,22 @@ impl Default for TrapFrame {
             r11: 0,
             psp: 0,
 
-            s16: 0,
-            s17: 0,
-            s18: 0,
-            s19: 0,
-            s20: 0,
-            s21: 0,
-            s22: 0,
-            s23: 0,
-            s24: 0,
-            s25: 0,
-            s26: 0,
-            s27: 0,
-            s28: 0,
-            s29: 0,
-            s30: 0,
-            s31: 0,
+            s16: 0.0,
+            s17: 0.0,
+            s18: 0.0,
+            s19: 0.0,
+            s20: 0.0,
+            s21: 0.0,
+            s22: 0.0,
+            s23: 0.0,
+            s24: 0.0,
+            s25: 0.0,
+            s26: 0.0,
+            s27: 0.0,
+            s28: 0.0,
+            s29: 0.0,
+            s30: 0.0,
+            s31: 0.0,
         }
     }
 }

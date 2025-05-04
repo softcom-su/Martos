@@ -1,5 +1,4 @@
 stages:
-  - docker_build_and_push
   - build
   - test
   - fmt
@@ -10,50 +9,6 @@ stages:
 
 variables:
   CARGO_TERM_COLOR: always
-
-.kaniko-build-template: &kaniko-build-template
-  stage: docker_build_and_push
-  image:
-    name: gcr.io/kaniko-project/executor:latest
-    entrypoint: [""]
-  rules:
-    - changes:
-        - dockers/**/*
-  script:
-    - export CACHE_ARG="--cache"
-    - if [[ $CACHE = "false" ]]; then export CACHE_ARG="--cache=false"; fi
-    - /kaniko/executor --build-arg CI_JOB_TOKEN $CACHE_ARG -c "$CI_PROJECT_DIR" -f "${DOCKERFILE}" -d "$CI_REGISTRY_IMAGE:${TAG}"
-    - 'echo "Image tag: $CI_REGISTRY_IMAGE:${TAG}"'
-
-build-xtensa-esp32-rust-docker:
-  <<: *kaniko-build-template
-  variables:
-    DOCKERFILE: "./dockers/xtensa-esp32/rust-dependencies/xtensa-esp32-rust.dockerfile"
-    TAG: "latest"
-
-build-xtensa-esp32-c-docker:
-  <<: *kaniko-build-template
-  variables:
-    DOCKERFILE: "./dockers/xtensa-esp32/c-dependencies/xtensa-esp32-c.dockerfile"
-    TAG: "latest"
-
-build-risc-v-esp32c6-c-docker:
-  <<: *kaniko-build-template
-  variables:
-    DOCKERFILE: "./dockers/risc-v-esp32c6/c-dependencies/risc-v-esp32c6-c.dockerfile"
-    TAG: "latest"
-
-build-esp-c-docker:
-  <<: *kaniko-build-template
-  variables:
-    DOCKERFILE: "./dockers/esp/esp.dockerfile"
-    TAG: "latest"
-
-build-stm32f4-rust-docker:
-  <<: *kaniko-build-template
-  variables:
-    DOCKERFILE: "./dockers/stm32f4/stm32f4-rust.dockerfile"
-    TAG: "latest"
 
 .base-template: &base-template
   image: ubuntu:latest
@@ -314,7 +269,7 @@ stm32f4-rust-example-timer:
   script:
     - cd ./examples/rust-examples/stm32f4/timer && cargo build --features="stm32f407" --release
 
-stm32f4-rust-example-scheduler:
+stm32f4-rust-example-scheduler: 
   stage: examples
   <<: *container-template
   image: rodionovmaxim05/stm32f4-qemu-rust:latest
