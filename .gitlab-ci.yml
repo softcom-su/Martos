@@ -244,7 +244,7 @@ stm32f4-rust-example-hello-world:
         -cpu cortex-m4 \
         -nographic \
         -semihosting-config enable=on,target=native \
-        -kernel target/thumbv7em-none-eabi/release/example_stm32f4 | tee qemu-output.log || true
+        -kernel target/thumbv7em-none-eabihf/release/example_stm32f4 | tee qemu-output.log || true
     - grep "Counter = 50" qemu-output.log || (echo "Test failed"; exit 1)
 
 stm32f4-rust-example-dynamic-memory:
@@ -259,7 +259,7 @@ stm32f4-rust-example-dynamic-memory:
         -cpu cortex-m4 \
         -nographic \
         -semihosting-config enable=on,target=native \
-        -kernel target/thumbv7em-none-eabi/release/example_stm32f4 | tee qemu-output.log || true
+        -kernel target/thumbv7em-none-eabihf/release/example_stm32f4 | tee qemu-output.log || true
     - grep "Vector last value = 50" qemu-output.log || (echo "Test failed"; exit 1)
 
 stm32f4-rust-example-timer:

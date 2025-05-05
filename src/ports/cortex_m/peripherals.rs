@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 use cortex_m::interrupt::{self, Mutex};
-use stm32f4xx_hal::{pac, prelude::*, rcc, timer::delay::SysDelay};
+use stm32f4xx_hal::{pac, prelude::*, rcc};
 
 /// Static variable for storing an instance of the peripherals.
 pub static PERIPHERALS: Mutex<RefCell<Option<Peripherals>>> = Mutex::new(RefCell::new(None));
