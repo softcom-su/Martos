@@ -275,3 +275,23 @@ stm32f4-rust-example-scheduler:
   image: rodionovmaxim05/stm32f4-qemu-rust:latest
   script:
     - cd ./examples/rust-examples/stm32f4/scheduler && cargo build --features="stm32f407" --release
+
+stm32f4-static-library:
+  stage: static_library
+  <<: *container-template
+  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  script:
+    - cd ./c-library/stm32f4 && cargo build --features="stm32f429" --release && cargo fmt --all -- --check
+  artifacts:
+    paths:
+      - c-library/stm32f4/target/thumbv7em-none-eabihf/release/libstm32f429_static_lib.a
+    expire_in: 7 days
+
+stm32f4-c-example:
+  stage: c_examples
+  <<: *container-template
+  image: rodionovmaxim05/stm32f4-c:latest
+  dependencies:
+    - stm32f4-static-library
+  script:
+    - cd ./examples/c-examples/stm32f4 && make
