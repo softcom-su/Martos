@@ -1,5 +1,5 @@
 [package]
-name = "stm32f429_static_lib_static_lib"
+name = "stm32f429_static_lib"
 version = "0.4.0"
 edition = "2021"
 
@@ -15,7 +15,7 @@ debug = true
 # Specifying Martos version
 # martos = { version = "0.4.0", features = ["c-library"] }
 # Specifying current Martos version path for ci
-martos = { path = "../../", features = ["c-library", "cortex_m", "preemptive"] }
+martos = { path = "../../", features = ["c-library", "cortex_m"] }
 
 [features]
 stm32f429 = ["martos/stm32f429"]

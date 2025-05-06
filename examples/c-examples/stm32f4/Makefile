@@ -22,8 +22,7 @@ LDFLAGS += $(LDFLAGS_PLATFORM)
 LDFLAGS += -lgcc
 
 # Link with martos
-LDFLAGS += -Ltarget/thumbv7em-none-eabihf/release
-LDFLAGS += -lstm32f429_static_lib
+LDFLAGS += -L../../../c-library/stm32f4/target/thumbv7em-none-eabihf/release/ -lstm32f429_static_lib
 
 # Set C source files
 C_SRC += src/main.c
