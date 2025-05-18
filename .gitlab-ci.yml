@@ -1,0 +1,52 @@
+stages:
+  - docker_build_and_push
+
+.kaniko-build-template: &kaniko-build-template
+  stage: docker_build_and_push
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.1-debug
+    entrypoint: [""]
+  rules:
+    - changes:
+        - dockers/**/*
+  script:
+    - export CACHE_ARG="--cache"
+    - if [[ $CACHE = "false" ]]; then export CACHE_ARG=""; fi
+    - /kaniko/executor --build-arg CI_JOB_TOKEN $CACHE_ARG -c "$CI_PROJECT_DIR" -f "${DOCKERFILE}" -d "$CI_REGISTRY_IMAGE:${TAG}"
+    - 'echo "Image tag: $CI_REGISTRY_IMAGE:${TAG}"'
+
+build-xtensa-esp32-rust-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/xtensa-esp32/rust-dependencies/xtensa-esp32-rust.dockerfile"
+    TAG: "xtensa-esp32-rust"
+
+build-xtensa-esp32-c-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/xtensa-esp32/c-dependencies/xtensa-esp32-c.dockerfile"
+    TAG: "xtensa-esp32-c"
+
+build-risc-v-esp32c6-c-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/risc-v-esp32c6/c-dependencies/risc-v-esp32c6-c.dockerfile"
+    TAG: "risc-v-esp32c6-c"
+
+build-esp-c-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/esp/esp.dockerfile"
+    TAG: "esp-c"
+
+build-stm32f4-rust-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/stm32f4/stm32f4-rust.dockerfile"
+    TAG: "stm32f4-qemu-rust"
+
+build-stm32f4-c-docker:
+  <<: *kaniko-build-template
+  variables:
+    DOCKERFILE: "./dockers/stm32f4/stm32f4-c.dockerfile"
+    TAG: "stm32f4-c"
