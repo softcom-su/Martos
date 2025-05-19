@@ -1,15 +1,16 @@
 use super::TrapFrame;
 use crate::ports::xtensa_esp32::hardware_timer::*;
 use esp_hal::{
-    interrupt::{self, InterruptHandler, Priority},
+    interrupt::{self, InterruptConfigurable, InterruptHandler, Priority},
     peripherals::*,
-    prelude::*,
+    time::ExtU64,
+    timer::Timer,
 };
 
 const TIME_SLICE_MILLIS: u64 = 1000;
 
 pub fn setup_interrupt() {
-    let timer0 = unsafe { TIMER00.take().expect("Timer error") };
+    let mut timer0 = unsafe { TIMER00.take().expect("Timer error") };
     timer0.set_interrupt_handler(InterruptHandler::new(
         unsafe { core::mem::transmute::<*const (), extern "C" fn()>(handler as *const ()) },
         Priority::Priority1,
@@ -19,7 +20,6 @@ pub fn setup_interrupt() {
 
     timer0.load_value(TIME_SLICE_MILLIS.millis()).unwrap();
     timer0.start();
-    timer0.listen();
 
     unsafe {
         TIMER00 = Some(timer0);
