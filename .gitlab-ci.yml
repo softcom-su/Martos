@@ -58,7 +58,7 @@ clippy:
 xtensa-esp32-rust-example-hello-world:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -68,7 +68,7 @@ xtensa-esp32-rust-example-hello-world:
 xtensa-esp32-rust-example-dynamic-memory:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -78,7 +78,7 @@ xtensa-esp32-rust-example-dynamic-memory:
 xtensa-esp32-rust-example-timer:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -88,7 +88,7 @@ xtensa-esp32-rust-example-timer:
 xtensa-esp32-rust-example-wifi:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -98,7 +98,7 @@ xtensa-esp32-rust-example-wifi:
 xtensa-esp32-rust-example-scheduler:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -108,7 +108,7 @@ xtensa-esp32-rust-example-scheduler:
 xtensa-esp32-static-library:
   stage: static_library
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -122,7 +122,7 @@ xtensa-esp32-static-library:
 xtensa-esp32-c-example:
   stage: c_examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-c:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-c
   variables:
     IDF_PATH: /root/esp/esp-idf
     IDF_TOOLS_PATH: /root/.espressif
@@ -134,7 +134,7 @@ xtensa-esp32-c-example:
 risc-v-esp32c6-rust-example-hello-world:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -144,7 +144,7 @@ risc-v-esp32c6-rust-example-hello-world:
 risc-v-esp32c6-rust-example-dynamic-memory:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -154,7 +154,7 @@ risc-v-esp32c6-rust-example-dynamic-memory:
 risc-v-esp32c6-rust-example-timer:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -164,7 +164,7 @@ risc-v-esp32c6-rust-example-timer:
 risc-v-esp32c6-rust-example-wifi:
   stage: examples
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -174,7 +174,7 @@ risc-v-esp32c6-rust-example-wifi:
 risc-v-esp32c6-static-library:
   stage: static_library
   <<: *container-template
-  image: arkhipovivan1/xtensa-esp32-rust:latest
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
   variables:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
@@ -188,7 +188,7 @@ risc-v-esp32c6-static-library:
 risc-v-esp32c6-c-example:
   stage: c_examples
   <<: *container-template
-  image: arkhipovivan1/risc-v-esp32c6-c:latest
+  image: $CI_REGISTRY_IMAGE:risc-v-esp32c6-c
   variables:
     IDF_PATH: /root/esp/esp-idf
     IDF_TOOLS_PATH: /root/.espressif
@@ -235,7 +235,7 @@ mips64-timer-tests:
 stm32f4-rust-example-hello-world:
   stage: examples
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-qemu-rust
   script:
     - cd examples/rust-examples/stm32f4/hello-world && cargo build --features="stm32f407" --release
     - |
@@ -250,7 +250,7 @@ stm32f4-rust-example-hello-world:
 stm32f4-rust-example-dynamic-memory:
   stage: examples
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-qemu-rust
   script:
     - cd ./examples/rust-examples/stm32f4/dynamic-memory && cargo build --features="stm32f407" --release
     - |
@@ -265,21 +265,21 @@ stm32f4-rust-example-dynamic-memory:
 stm32f4-rust-example-timer:
   stage: examples
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-qemu-rust
   script:
     - cd ./examples/rust-examples/stm32f4/timer && cargo build --features="stm32f407" --release
 
 stm32f4-rust-example-scheduler: 
   stage: examples
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-qemu-rust
   script:
     - cd ./examples/rust-examples/stm32f4/scheduler && cargo build --features="stm32f407" --release
 
 stm32f4-static-library:
   stage: static_library
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-qemu-rust:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-qemu-rust
   script:
     - cd ./c-library/stm32f4 && cargo build --features="stm32f429" --release && cargo fmt --all -- --check
   artifacts:
@@ -290,7 +290,7 @@ stm32f4-static-library:
 stm32f4-c-example:
   stage: c_examples
   <<: *container-template
-  image: rodionovmaxim05/stm32f4-c:latest
+  image: $CI_REGISTRY_IMAGE:stm32f4-c
   dependencies:
     - stm32f4-static-library
   script:

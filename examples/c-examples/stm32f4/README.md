@@ -10,10 +10,7 @@ Additionally, within the loop function, the counter value is incremented fifty t
 Below is a step-by-step guide for installing dependencies on a Linux (Ubuntu/Debian) system.
 ```
 apt-get -qq update
-apt-get install -y -q build-essential curl
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-source $HOME/.cargo/env
-rustup target add thumbv7em-none-eabihf
+apt-get install -y -q build-essential curl gcc-arm-none-eabi cmake
 ```
 
 ## Before building the example
