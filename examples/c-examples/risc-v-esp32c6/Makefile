@@ -16,8 +16,9 @@ LDFLAGS += -L../../../c-library/risc-v-esp32-c6/target/riscv32imac-unknown-none-
 LDFLAGS += -nostdlib -T $(LDSCRIPT) -Wl,-Map=$@.map -Wl,--cref -Wl,--gc-sections
 LDFLAGS += $(LDFLAGS_PLATFORM)
 LDFLAGS += -lgcc
+LDFLAGS += ./ld/device.x
 
-C_SRC += ./src/main.c
+C_SRC += ./src/main.c ./src/interrupts.c
 
 OBJS += $(C_SRC:.c=.o)
 

@@ -20,13 +20,19 @@ MEMORY
 
 /* Define output sections */
 SECTIONS {
+  .rwtext : ALIGN(4)
+  {
+    . = ALIGN (4);
+    *(.rwtext.literal .rwtext .rwtext.literal.* .rwtext.*)
+    . = ALIGN(4);
+  } > iram_seg
+
   /* The program code and other data goes into Instruction RAM */
   .iram.text :
   {
     . = ALIGN(16);
     KEEP(*(.entry.text))
-    *(.text)
-    *(.text*)
+    *(.literal .text .literal.* .text.*)
     KEEP (*(.init))
     KEEP (*(.fini))
     *(.rodata)

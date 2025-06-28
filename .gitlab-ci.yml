@@ -246,7 +246,7 @@ risc-v-esp32c6-c-example:
   dependencies:
     - risc-v-esp32c6-static-library
   script:
-    - sed -i 's/0x4086E610/0x40862368/' "$IDF_PATH/components/esp_system/ld/esp32c6/memory.ld.in"
+    - sed -i 's/0x4086E610/0x40862336/' "$IDF_PATH/components/esp_system/ld/esp32c6/memory.ld.in"
     - cd ./examples/c-examples/risc-v-esp32c6 && . /root/esp/esp-idf/export.sh && make && esptool.py --chip esp32c6 elf2image --flash_mode="dio" --flash_freq "40m" --flash_size "4MB" -o main.bin main.elf
 
 mips64-rust-example-hello-world:
