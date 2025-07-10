@@ -1,0 +1,11 @@
+[build]
+target = "thumbv7em-none-eabihf"
+
+[unstable]
+build-std = ["core", "alloc"]
+
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+  "-C", "linker=arm-none-eabi-ld",
+  "-C", "link-arg=--gc-sections",
+]

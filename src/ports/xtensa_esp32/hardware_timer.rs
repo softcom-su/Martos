@@ -1,11 +1,10 @@
 use core::sync::atomic::{AtomicBool, Ordering};
 use core::time::Duration;
-use esp_hal::timer::timg::{Timer, Timer0, TimerGroup};
-use esp_hal::{peripherals::*, prelude::*};
+use esp_hal::{peripherals::*, timer::timg::TimerGroup, timer::Timer};
 
 // TODO: initialize peripherals in separate mod
-pub static mut TIMER00: Option<Timer<Timer0<TIMG0>, esp_hal::Blocking>> = None;
-pub static mut TIMER10: Option<Timer<Timer0<TIMG1>, esp_hal::Blocking>> = None;
+pub static mut TIMER00: Option<esp_hal::timer::timg::Timer> = None;
+pub static mut TIMER10: Option<esp_hal::timer::timg::Timer> = None;
 pub static mut PERIFERALS_RNG: Option<RNG> = None;
 pub static mut PERIFERALS_RADIO_CLK: Option<RADIO_CLK> = None;
 pub static mut PERIFERALS_WIFI: Option<WIFI> = None;

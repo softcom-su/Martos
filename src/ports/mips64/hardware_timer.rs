@@ -270,15 +270,9 @@ pub fn try_acquire_timer(timer_index: u8) -> bool {
                 &timer_block.timer4.in_use,
             ];
 
-            let return_value = match timers[timer_index as usize].compare_exchange(
-                false,
-                true,
-                Ordering::Acquire,
-                Ordering::Relaxed,
-            ) {
-                Ok(_) => true,
-                Err(_) => false,
-            };
+            let return_value = timers[timer_index as usize]
+                .compare_exchange(false, true, Ordering::Acquire, Ordering::Relaxed)
+                .is_ok();
             TIMER_BLOCK = Some(timer_block);
 
             return_value

@@ -15,18 +15,24 @@ MEMORY
   /* TODO: Use human-readable lengths */
   /* TODO: Use the full memory map - this is just a test */
   iram_seg ( RX )       : ORIGIN = 0x40080400, len = 0xFC00
-  dram_seg ( RW )       : ORIGIN = 0x3FFF0000, len = 0x100A8
+  dram_seg ( RW )       : ORIGIN = 0x3FFF0000, len = 0x102EB
 }
 
 /* Define output sections */
 SECTIONS {
+  .rwtext : ALIGN(4)
+  {
+    . = ALIGN (4);
+    *(.rwtext.literal .rwtext .rwtext.literal.* .rwtext.*)
+    . = ALIGN(4);
+  } > iram_seg
+
   /* The program code and other data goes into Instruction RAM */
   .iram.text :
   {
     . = ALIGN(16);
     KEEP(*(.entry.text))
-    *(.text)
-    *(.text*)
+    *(.literal .text .literal.* .text.*)
     KEEP (*(.init))
     KEEP (*(.fini))
     *(.rodata)
