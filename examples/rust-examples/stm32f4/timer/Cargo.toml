@@ -1,0 +1,21 @@
+[package]
+name = "example_stm32f4"
+version = "0.4.0"
+edition = "2021"
+
+[profile.release]
+panic = "abort"
+debug = true
+
+[features]
+stm32f429 = ["martos/stm32f429"]
+stm32f407 = ["martos/stm32f407"]
+
+[dependencies]
+# Specifying Martos version
+# martos = "0.4.0"
+# Specifying current Martos version path for ci
+martos = { path = "../../../../", features = ["cortex_m"] }
+cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+cortex-m-semihosting = "0.5"

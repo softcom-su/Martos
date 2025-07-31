@@ -3,6 +3,9 @@ use core::time::Duration;
 #[cfg(feature = "network")]
 use esp_wifi::esp_now::EspNow;
 
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+use stm32f4xx_hal::{pac, serial::Serial};
+
 /// PortTrait contains all the platform specific functions.
 pub trait PortTrait {
     /// Function is called when timer is created. Can be used to set configuration.
@@ -34,6 +37,10 @@ pub trait PortTrait {
     /// Function for getting esp-now object for network.
     fn get_esp_now() -> EspNow<'static>;
 
+    #[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+    /// Cortex_m uart.
+    fn get_uart() -> Serial<pac::USART3>;
+
     // TODO: split to separate trait?
     #[cfg(feature = "preemptive")]
     fn setup_interrupt();
@@ -61,12 +68,14 @@ mod arch {
 
 #[cfg(all(
     not(any(target_arch = "riscv32", target_arch = "xtensa")),
-    not(target_arch = "mips64")
+    not(target_arch = "mips64"),
+    not(target_arch = "arm")
 ))]
 pub mod mok;
 #[cfg(all(
     not(any(target_arch = "riscv32", target_arch = "xtensa")),
-    not(target_arch = "mips64")
+    not(target_arch = "mips64"),
+    not(target_arch = "arm")
 ))]
 mod arch {
     use super::mok;
@@ -87,6 +96,18 @@ mod arch {
     pub type TrapFrame = ();
     #[cfg(feature = "preemptive")]
     pub const STACK_ALIGN: usize = 0;
+}
+
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+pub mod cortex_m;
+#[cfg(all(target_arch = "arm", feature = "cortex_m"))]
+mod arch {
+    use super::cortex_m;
+    pub type Port = cortex_m::CortexM;
+    #[cfg(feature = "preemptive")]
+    pub type TrapFrame = cortex_m::TrapFrame;
+    #[cfg(feature = "preemptive")]
+    pub const STACK_ALIGN: usize = 8;
 }
 
 pub use arch::*;

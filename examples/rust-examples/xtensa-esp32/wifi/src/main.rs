@@ -2,7 +2,7 @@
 #![no_main]
 
 use esp_backtrace as _;
-use esp_hal::{entry, time};
+use esp_hal::{main, time};
 use esp_println::println;
 use esp_wifi::esp_now::{EspNow, PeerInfo, BROADCAST_ADDRESS};
 use martos::get_esp_now;
@@ -74,7 +74,7 @@ fn stop_condition_fn() -> bool {
     return false;
 }
 
-#[entry]
+#[main]
 fn main() -> ! {
     // Initialize Martos.
     init_system();

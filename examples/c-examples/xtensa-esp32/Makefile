@@ -2,7 +2,7 @@
 # Use the xtensa-esp32-elf toolchain.
 TOOLCHAIN = xtensa-esp32-elf-
 
-CFLAGS_PLATFORM  = -mlongcalls -mtext-section-literals -fstrict-volatile-bitfields
+CFLAGS_PLATFORM  = -mlongcalls -fstrict-volatile-bitfields
 ASFLAGS_PLATFORM = $(CFLAGS_PLATFORM)
 LDFLAGS_PLATFORM = $(CFLAGS_PLATFORM)
 
@@ -27,12 +27,13 @@ LDFLAGS += -L../../../c-library/xtensa-esp32/target/xtensa-esp32-none-elf/releas
 LDFLAGS += -nostdlib -T$(LDSCRIPT) -Wl,-Map=$@.map -Wl,--cref -Wl,--gc-sections
 LDFLAGS += $(LDFLAGS_PLATFORM)
 LDFLAGS += -lm -lgcc -Wl,--allow-multiple-definition -z noexecstack
+LDFLAGS += ./ld/device.x
+
 ASFLAGS += -c -O0 -Wall -fmessage-length=0
 ASFLAGS += $(ASFLAGS_PLATFORM)
 
 # Set C source files.
-C_SRC += \
-	./src/main.c \
+C_SRC += ./src/main.c ./src/interrupts.c
 
 OBJS += $(C_SRC:.c=.o)
 
