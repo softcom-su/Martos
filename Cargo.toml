@@ -19,6 +19,7 @@ mips64_timer_tests = []
 cortex_m = []
 stm32f429 = ["stm32f4xx-hal/stm32f429"] # for QEMU test
 stm32f407 = ["stm32f4xx-hal/stm32f407"]
+cooperative_tests = []
 
 [dependencies]
 cfg-if = "1.0.0"

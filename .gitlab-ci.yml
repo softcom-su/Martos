@@ -146,7 +146,7 @@ xtensa-esp32-rust-example-wifi:
   script:
     - cd ./examples/rust-examples/xtensa-esp32/wifi && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
-xtensa-esp32-rust-example-scheduler:
+xtensa-esp32-rust-example-preemptive-scheduler:
   stage: examples
   <<: *container-template
   image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
@@ -154,7 +154,17 @@ xtensa-esp32-rust-example-scheduler:
     CARGO_HOME: /root/.cargo
     RUSTUP_HOME: /root/.rustup
   script:
-    - cd ./examples/rust-examples/xtensa-esp32/scheduler && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
+    - cd ./examples/rust-examples/xtensa-esp32/scheduler/preemptive && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
+
+xtensa-esp32-rust-example-cooperative-scheduler:
+  stage: examples
+  <<: *container-template
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
+  variables:
+    CARGO_HOME: /root/.cargo
+    RUSTUP_HOME: /root/.rustup
+  script:
+    - cd ./examples/rust-examples/xtensa-esp32/scheduler/cooperative && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
 xtensa-esp32-static-library:
   stage: static_library
@@ -212,6 +222,16 @@ risc-v-esp32c6-rust-example-timer:
   script:
     - cd ./examples/rust-examples/risc-v-esp32-c6/timer && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
 
+risc-v-esp32c6-rust-example-cooperative-scheduler:
+  stage: examples
+  <<: *container-template
+  image: $CI_REGISTRY_IMAGE:xtensa-esp32-rust
+  variables:
+    CARGO_HOME: /root/.cargo
+    RUSTUP_HOME: /root/.rustup
+  script:
+    - cd ./examples/rust-examples/risc-v-esp32-c6/scheduler/cooperative && . /root/export-esp.sh && cargo build && cargo fmt --all -- --check
+
 risc-v-esp32c6-rust-example-wifi:
   stage: examples
   <<: *container-template
@@ -246,7 +266,7 @@ risc-v-esp32c6-c-example:
   dependencies:
     - risc-v-esp32c6-static-library
   script:
-    - sed -i 's/0x4086E610/0x40862336/' "$IDF_PATH/components/esp_system/ld/esp32c6/memory.ld.in"
+    - sed -i 's/0x4086E610/0x408620AE/' "$IDF_PATH/components/esp_system/ld/esp32c6/memory.ld.in"
     - cd ./examples/c-examples/risc-v-esp32c6 && . /root/esp/esp-idf/export.sh && make && esptool.py --chip esp32c6 elf2image --flash_mode="dio" --flash_freq "40m" --flash_size "4MB" -o main.bin main.elf
 
 mips64-rust-example-hello-world:
@@ -266,6 +286,12 @@ mips64-rust-example-timer:
   <<: *base-template
   script:
     - cd ./examples/rust-examples/mips64/timer && cargo +nightly build --release && cargo +nightly fmt --all -- --check
+
+mips64-rust-example-cooperative-scheduler:
+  stage: examples
+  <<: *base-template
+  script:
+    - cd ./examples/rust-examples/mips64/scheduler/cooperative && cargo +nightly build --release && cargo +nightly fmt --all -- --check
 
 mips64-static-library:
   stage: static_library
@@ -346,3 +372,9 @@ stm32f4-c-example:
     - stm32f4-static-library
   script:
     - cd ./examples/c-examples/stm32f4 && make
+
+cooperative-scheduler-tests:
+  stage: test
+  <<: *rust-template
+  script:
+    - cargo test -F cooperative_tests
