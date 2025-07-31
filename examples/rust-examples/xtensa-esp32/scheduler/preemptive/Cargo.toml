@@ -10,7 +10,7 @@ debug = true
 # Specifying Martos version
 #martos = "0.3.0"
 # Specifying current Martos version path for ci
-martos = { path = "../../../../", features = ["preemptive"]}
+martos = { path = "../../../../../", features = ["preemptive"]}
 esp-hal = "0.23.1"
 esp-backtrace = { version = "0.14.1", features = ["esp32", "panic-handler", "exception-handler", "println"] }
 esp-println = { version = "0.11.0", features = ["esp32"] }
